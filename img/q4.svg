@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- черновик, а не финал -->
+  <rect x="38" y="84" width="52" height="56" rx="16" fill="#3f8f6b"/>
+  <circle cx="64" cy="56" r="22" fill="#f2c9a5"/>
+  <path d="M41 54c0-16 10-24 23-24s23 8 23 24c-6-8-14-11-23-11s-17 3-23 11z" fill="#5a4636"/>
+  <circle cx="55" cy="58" r="2.2" fill="#2b2b2b"/><circle cx="73" cy="58" r="2.2" fill="#2b2b2b"/>
+  <path d="M50 50l10-2M68 46l10 4" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M56 69q6 3 14-3" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M40 50l-10-16" stroke="#f0b429" stroke-width="5"/><path d="M29 32l-3-7 7 3z" fill="#5a4636" stroke="none"/>
+  <path d="M86 96 L110 94" stroke="#f2c9a5" stroke-width="9"/>
+  <circle cx="110" cy="94" r="6" fill="#f2c9a5"/>
+  <rect x="108" y="44" width="66" height="84" rx="4" fill="#fff" stroke="#b8ad9c" stroke-width="2"/>
+  <path d="M118 62h46M118 74h46M118 86h30" stroke="#b8ad9c" stroke-width="3"/>
+  <g transform="rotate(-14 141 108)">
+    <rect x="116" y="100" width="50" height="16" rx="3" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <text x="141" y="111.5" text-anchor="middle" textLength="42" lengthAdjust="spacingAndGlyphs" font-family="system-ui, Segoe UI, sans-serif" font-size="8.5" font-weight="800" fill="#c0392b">ЧЕРНОВИК</text>
+  </g>
+  <path d="M176 36q4 7 0 11q-4-4 0-11z" fill="#8ec5e6"/>
+</svg>

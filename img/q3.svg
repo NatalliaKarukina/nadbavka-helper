@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- ничего не сохраняется: «Пуф!» -->
+  <rect x="40" y="84" width="52" height="56" rx="16" fill="#3f8f6b"/>
+  <circle cx="66" cy="56" r="22" fill="#f2c9a5"/>
+  <path d="M43 54c0-16 10-24 23-24s23 8 23 24c-6-8-14-11-23-11s-17 3-23 11z" fill="#5a4636"/>
+  <path d="M52 58q5-7 10 0" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M70 58h10" stroke="#2b2b2b" stroke-width="2.5"/>
+  <circle cx="50" cy="65" r="4" fill="#f4a09a" opacity=".6"/><circle cx="82" cy="65" r="4" fill="#f4a09a" opacity=".6"/>
+  <path d="M57 66q9 10 18 0" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M44 94 L32 114" stroke="#f2c9a5" stroke-width="9"/>
+  <circle cx="32" cy="114" r="6" fill="#f2c9a5"/>
+  <path d="M88 92 L112 62" stroke="#f2c9a5" stroke-width="9"/>
+  <circle cx="112" cy="62" r="6" fill="#f2c9a5"/>
+  <rect x="124" y="62" width="48" height="58" rx="4" fill="none" stroke="#b8ad9c" stroke-width="2.5" stroke-dasharray="5 5"/>
+  <path d="M132 80h32M132 92h32M132 104h20" stroke="#d8cfc0" stroke-width="3" stroke-dasharray="3 5"/>
+  <g fill="#fff" stroke="#b8ad9c" stroke-width="2">
+    <circle cx="136" cy="56" r="9"/><circle cx="150" cy="50" r="11"/><circle cx="164" cy="57" r="8"/>
+  </g>
+  <text x="150" y="30" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#6b6b6b">Пуф!</text>
+  <path d="M176 38l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#f0b429"/>
+</svg>

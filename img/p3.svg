@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- сотрудник понял, что накосячил: виноватая гримаса, пот, «Ой…» -->
+  <rect x="44" y="76" width="52" height="62" rx="16" fill="#3f8f6b"/>
+  <path d="M56 92 L40 110" stroke="#f2c9a5" stroke-width="9"/>
+  <circle cx="38" cy="113" r="6" fill="#f2c9a5"/>
+  <path d="M90 90 L124 98" stroke="#f2c9a5" stroke-width="9"/>
+  <rect x="116" y="58" width="64" height="82" rx="5" fill="#fff" stroke="#b8ad9c" stroke-width="2"/>
+  <path d="M126 74h44M126 86h44M126 98h30" stroke="#b8ad9c" stroke-width="2.5"/>
+  <rect x="124" y="108" width="48" height="14" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M186 96l-12 10M176 98l-2 9l9 1" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="70" cy="46" r="23" fill="#f2c9a5"/>
+  <path d="M47 44c0-16 10-24 23-24s23 8 23 24c-6-8-14-11-23-11s-17 3-23 11z" fill="#5a4636"/>
+  <circle cx="61" cy="47" r="5.5" fill="#fff" stroke="#2b2b2b" stroke-width="2"/><circle cx="79" cy="47" r="5.5" fill="#fff" stroke="#2b2b2b" stroke-width="2"/>
+  <circle cx="63.5" cy="49" r="2" fill="#2b2b2b"/><circle cx="81.5" cy="49" r="2" fill="#2b2b2b"/>
+  <path d="M54 41l10-5M76 36l10 5" stroke="#2b2b2b" stroke-width="2.5"/>
+  <rect x="59" y="58" width="22" height="8" rx="3" fill="#fff" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M65 58v8M70 58v8M75 58v8" stroke="#2b2b2b" stroke-width="1.5"/>
+  <path d="M46 34q4 7 0 11q-4-4 0-11zM94 40q4 7 0 11q-4-4 0-11zM92 24q3 5 0 8q-3-3 0-8z" fill="#8ec5e6"/>
+  <path d="M86 6h40a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6h-22l-8 8v-8h-10a6 6 0 0 1-6-6V12a6 6 0 0 1 6-6z" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="108" y="25" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#2b2b2b">Ой…</text>
+</svg>

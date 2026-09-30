@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Помощник по приказу на надбавку</title>
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<div class="page">
+  <div class="topnav"><a href="index.html">← На главную</a></div>
+  <div id="warning" role="note">
+    ⚠ Тестируй на вымышленном сотруднике: достижения реального человека могут быть персональными данными.
+  </div>
+  <h1>Помощник по приказу на надбавку</h1>
+  <p class="lead">Заполни форму — черновики представления и приказа появятся рядом.</p>
+  <p class="lead" id="empty-hint">Пока всё пусто: на месте незаполненных полей в документах стоят метки в [квадратных скобках].</p>
+  <div class="layout">
+    <div class="col-left">
+      <section class="card" id="form">
+        <h2>Данные</h2>
+        <p class="hint">Начни с сотрудника, остальное я подставлю.</p>
+        <label>ФИО <input id="fio" type="text" placeholder="Тестов Тест Тестович"></label>
+        <label>Должность <input id="position" type="text"></label>
+        <label>Подразделение <input id="department" type="text"></label>
+        <p class="hint">Теперь сама надбавка.</p>
+        <div class="row">
+          <label>Размер <input id="amount" type="text" inputmode="decimal" placeholder="12,5"></label>
+          <fieldset>
+            <legend>В чём</legend>
+            <label class="inline"><input type="radio" name="amountType" value="percent" checked> % от тарифного оклада</label>
+            <label class="inline"><input type="radio" name="amountType" value="sum"> сумма, руб.</label>
+          </fieldset>
+        </div>
+        <label>Установить с <input id="startDate" type="date"></label>
+        <p class="hint">И реквизиты приказа.</p>
+        <div class="row">
+          <label>Номер приказа <input id="orderNumber" type="text"></label>
+          <label>Дата приказа <input id="orderDate" type="date"></label>
+        </div>
+        <label>Основание <input id="basis" type="text" placeholder="представление, локальный акт…"></label>
+        <p class="hint">Достижения: опиши сам или прикрепи должностную инструкцию.</p>
+        <label>Должностная инструкция (.docx или .txt)
+          <input id="instr" type="file" accept=".docx,.txt">
+        </label>
+        <div id="instr-status" class="hint-small">Файл читается только в твоём браузере и никуда не отправляется.</div>
+        <div id="duties" class="duties" hidden></div>
+        <label>Достижения сотрудника <textarea id="achievements" rows="4" placeholder="можно написать самой или отметить пункты инструкции выше"></textarea></label>
+        <button type="button" id="clear">Очистить форму</button>
+      </section>
+      <section class="card" id="checklist">
+        <h2>Памятка: что поднять перед надбавкой</h2>
+        <p class="hint">Отмечай по ходу — галочки нигде не сохраняются.</p>
+        <label><input type="checkbox"> Должностная инструкция сотрудника</label>
+        <label><input type="checkbox"> Локальный акт о надбавках</label>
+        <label><input type="checkbox"> Размер надбавки установлен на основании представления</label>
+        <label><input type="checkbox"> Факты о достижениях собраны (вымышленные — для теста)</label>
+        <label><input type="checkbox"> Основание для приказа сформулировано</label>
+      </section>
+    </div>
+    <div class="col-right">
+      <section class="card" id="preview-rep"><h2>Представление на персональную надбавку</h2>
+        <pre class="doc" id="out-rep"></pre>
+        <button type="button" data-copy="out-rep">Копировать</button><span class="warn-note"></span></section>
+      <section class="card" id="preview-order"><h2>Приказ</h2>
+        <pre class="doc" id="out-order"></pre>
+        <button type="button" data-copy="out-order">Копировать</button><span class="warn-note"></span></section>
+    </div>
+  </div>
+</div>
+<script>
+const FIELDS = ['fio', 'position', 'department', 'amount', 'startDate', 'orderNumber', 'orderDate', 'basis', 'achievements'];
+
+function collectForm() {
+  const d = {};
+  FIELDS.forEach(id => { d[id] = document.getElementById(id).value.trim(); });
+  d.amountType = document.querySelector('input[name=amountType]:checked').value;
+  const ticked = [...document.querySelectorAll('#duties input:checked')].map(c => '— ' + c.value);
+  d.achievements = [d.achievements, ...ticked].filter(Boolean).join('\n');
+  return d;
+}
+
+function parseAmount(s) {
+  return /^\d+([.,]\d+)?$/.test(s) ? Number(s.replace(',', '.')) : NaN;
+}
+
+function validate(d) {
+  const errors = {};
+  if (d.amount !== '') {
+    const n = parseAmount(d.amount);
+    if (!Number.isFinite(n) || n <= 0) errors.amount = 'Нужно число больше нуля, например 12,5';
+  }
+  if (d.orderDate !== '' && Number.isNaN(Date.parse(d.orderDate))) errors.orderDate = 'Похоже, дата указана неверно';
+  return errors;
+}
+
+function showErrors(errors) {
+  document.querySelectorAll('.err').forEach(e => e.remove());
+  FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.toggle('invalid', id in errors);
+    if (id in errors) {
+      const m = document.createElement('div');
+      m.className = 'err';
+      m.textContent = errors[id];
+      el.insertAdjacentElement('afterend', m);
+    }
+  });
+}
+
+function clearForm() {
+  FIELDS.forEach(id => { document.getElementById(id).value = ''; });
+  document.querySelector('input[name=amountType][value=percent]').checked = true;
+  document.getElementById('instr').value = '';
+  loadInstruction(null);
+  render();
+}
+
+function ph(value, label) {
+  return value === '' ? '[' + label + ']' : value;
+}
+
+function formatDate(iso) {
+  if (iso === '') return '';
+  const [y, m, day] = iso.split('-');
+  return day + '.' + m + '.' + y;
+}
+
+function amountText(d) {
+  const a = ph(d.amount, 'размер надбавки');
+  return d.amountType === 'percent' ? a + ' % от тарифного оклада' : a + ' руб.';
+}
+
+function buildOrder(d) {
+  return [
+    'ПРИКАЗ № ' + ph(d.orderNumber, 'номер приказа'),
+    'от ' + ph(formatDate(d.orderDate), 'дата приказа'),
+    '',
+    'О назначении персональной надбавки',
+    '',
+    'Основание: ' + ph(d.basis, 'основание') + '.',
+    'ПРИКАЗЫВАЮ:',
+    '1. Установить персональную надбавку в размере ' + amountText(d) + ' работнику: ' +
+      ph(d.fio, 'ФИО') + ', ' + ph(d.position, 'должность') + ' (' + ph(d.department, 'подразделение') + ').',
+    '2. Надбавку установить с ' + ph(formatDate(d.startDate), 'дата, с которой устанавливается') + '.',
+    '3. Контроль за исполнением приказа оставляю за собой.',
+    '',
+    '[Должность руководителя]      [подпись]      [Фамилия И.О.]',
+    'С приказом ознакомлен(а): ____________  ' + ph(d.fio, 'ФИО'),
+  ].join('\n');
+}
+
+function buildRepresentation(d) {
+  return [
+    '[Должность и ФИО руководителя]',
+    'от [должность и ФИО автора представления]',
+    '',
+    'ПРЕДСТАВЛЕНИЕ',
+    '',
+    'Прошу назначить персональную надбавку в размере ' + amountText(d) + '.',
+    'Работник: ' + ph(d.fio, 'ФИО') + ', ' + ph(d.position, 'должность') +
+      ' (' + ph(d.department, 'подразделение') + ').',
+    'Установить с: ' + ph(formatDate(d.startDate), 'дата, с которой устанавливается') + '.',
+    '',
+    'Обоснование: ' + ph(d.basis, 'основание') + '.',
+    'Достижения работника: ' + ph(d.achievements.replace(/[.\s]+$/, ''), 'достижения') + '.',
+    '',
+    '[дата]      [подпись]',
+  ].join('\n');
+}
+
+function copyBlock(id) {
+  const block = document.getElementById(id);
+  const top = block.querySelector('.doc-top');
+  const text = top
+    ? [top.querySelector('.doc-approve').textContent, top.querySelector('.doc-head').textContent, top.nextSibling.textContent].join('\n\n')
+    : block.textContent;
+  const fallback = () => {
+    const r = document.createRange();
+    r.selectNodeContents(document.getElementById(id));
+    const s = getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  };
+  const note = document.getElementById(id).parentElement.querySelector('.warn-note');
+  const done = ok => { note.textContent = ok ? 'Скопировано ✓' : 'Не удалось скопировать — текст выделен, нажми Ctrl+C'; };
+  const legacy = () => {
+    fallback();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    done(ok);
+  };
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => done(true), legacy);
+  else legacy();
+}
+
+function render() {
+  const d = collectForm();
+  const errors = validate(d);
+  showErrors(errors);
+  document.getElementById('empty-hint').hidden = FIELDS.some(f => d[f] !== '');
+  const outs = {
+    'out-order': [buildOrder(d), ['fio', 'position', 'department', 'amount', 'startDate', 'orderNumber', 'orderDate', 'basis']],
+    'out-rep': [buildRepresentation(d), ['fio', 'position', 'department', 'amount', 'startDate', 'basis', 'achievements']],
+  };
+  Object.entries(outs).forEach(([id, [text, used]]) => {
+    const el = document.getElementById(id);
+    el.textContent = '';
+    if (id === 'out-rep') {
+      // «шапка» представления (кому и от кого) — в правом верхнем углу
+      const lines = text.split('\n');
+      const top = document.createElement('div');
+      top.className = 'doc-top';
+      const approve = document.createElement('div');
+      approve.className = 'doc-approve';
+      approve.textContent = 'СОГЛАСОВАНО:\n[руководитель предприятия]\n[подпись]    [дата]';
+      const head = document.createElement('div');
+      head.className = 'doc-head';
+      head.textContent = lines.slice(0, 2).join('\n');
+      top.append(approve, head);
+      const body = document.createElement('div');
+      body.textContent = lines.slice(3).join('\n');
+      el.append(top, body);
+    } else {
+      el.textContent = text;
+    }
+    const note = el.parentElement.querySelector('.warn-note');
+    note.textContent = (used.some(f => d[f] === '') || Object.keys(errors).length)
+      ? 'есть незаполненные поля' : '';
+  });
+}
+
+// --- Должностная инструкция: читаем файл локально, достаём обязанности ---
+async function inflateRaw(bytes) {
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+
+async function readDocxParagraphs(buf) {
+  const u8 = new Uint8Array(buf), dv = new DataView(buf);
+  let eocd = -1;
+  for (let i = u8.length - 22; i >= Math.max(0, u8.length - 66000); i--) {
+    if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error('not a zip');
+  const count = dv.getUint16(eocd + 10, true);
+  let p = dv.getUint32(eocd + 16, true);
+  for (let n = 0; n < count; n++) {
+    const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true);
+    const nameLen = dv.getUint16(p + 28, true), extraLen = dv.getUint16(p + 30, true), commentLen = dv.getUint16(p + 32, true);
+    const localOff = dv.getUint32(p + 42, true);
+    const name = new TextDecoder().decode(u8.subarray(p + 46, p + 46 + nameLen));
+    if (name === 'word/document.xml') {
+      const dataStart = localOff + 30 + dv.getUint16(localOff + 26, true) + dv.getUint16(localOff + 28, true);
+      let data = u8.subarray(dataStart, dataStart + csize);
+      if (method === 8) data = await inflateRaw(data);
+      const xml = new TextDecoder().decode(data);
+      return xml.split('</w:p>').map(par => par
+        .replace(/<w:tab\/>/g, ' ').replace(/<[^>]+>/g, '')
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'")
+        .replace(/\s+/g, ' ').trim()).filter(Boolean);
+    }
+    p += 46 + nameLen + extraLen + commentLen;
+  }
+  throw new Error('no document.xml');
+}
+
+function extractDuties(paragraphs) {
+  const start = paragraphs.findIndex(t => /должностн\S*\s+обязанност|функци/i.test(t) && t.length < 80);
+  let rest = start >= 0 ? paragraphs.slice(start + 1) : paragraphs;
+  const end = rest.findIndex(t => /^(\d+\.?\s*)?(права|ответственност|требовани|взаимоотношен|порядок)/i.test(t) && t.length < 80);
+  if (end >= 0) rest = rest.slice(0, end);
+  return rest.filter(t => t.length >= 20).slice(0, 40);
+}
+
+const INSTR_HINT = 'Файл читается только в твоём браузере и никуда не отправляется.';
+
+async function loadInstruction(file) {
+  const status = document.getElementById('instr-status'), box = document.getElementById('duties');
+  box.hidden = true; box.textContent = '';
+  status.textContent = INSTR_HINT;
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) { status.textContent = 'Файл больше 5 МБ — возьми файл поменьше.'; }
+    else {
+      try {
+        const paragraphs = /\.docx$/i.test(file.name)
+          ? await readDocxParagraphs(await file.arrayBuffer())
+          : (await file.text()).split(/\r?\n/).map(t => t.trim()).filter(Boolean);
+        const duties = extractDuties(paragraphs);
+        if (!duties.length) status.textContent = 'Не нашла в файле обязанностей. Опиши достижения вручную.';
+        else {
+          status.textContent = 'Нашла пунктов: ' + duties.length + '. Отметь те, что сотрудник выполняет особенно хорошо, — они попадут в достижения.';
+          duties.forEach(t => {
+            const l = document.createElement('label');
+            const c = document.createElement('input');
+            c.type = 'checkbox'; c.value = t;
+            l.append(c, ' ' + t);
+            box.append(l);
+          });
+          box.hidden = false;
+        }
+      } catch (e) {
+        status.textContent = 'Не получилось прочитать файл. Подходят .docx и .txt (PDF и старый .doc — нет). Опиши достижения вручную.';
+      }
+    }
+  }
+  render();
+}
+
+document.getElementById('instr').addEventListener('change', e => loadInstruction(e.target.files[0]));
+document.querySelectorAll('[data-copy]').forEach(b =>
+  b.addEventListener('click', () => copyBlock(b.dataset.copy)));
+document.getElementById('form').addEventListener('input', render);
+render();
+document.getElementById('clear').addEventListener('click', clearForm);
+</script>
+</body>
+</html>

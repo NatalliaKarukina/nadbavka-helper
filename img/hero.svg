@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- фон-пятна -->
+  <ellipse cx="300" cy="290" rx="285" ry="105" fill="#e3f2ea"/>
+  <ellipse cx="120" cy="200" rx="100" ry="70" fill="#eef7f1"/>
+
+  <!-- последовательность на стене: представление -> согласование -> приказ -->
+  <g transform="translate(0 -16)" font-family="system-ui, Segoe UI, sans-serif" font-weight="700" text-anchor="middle" fill="#2b2b2b">
+    <rect x="96" y="26" width="104" height="100" rx="3" fill="#fff" stroke="#333" stroke-width="2"/>
+    <path d="M110 70h76M110 82h76M110 94h50" stroke="#b8ad9c" stroke-width="3"/>
+    <text x="148" y="44" font-size="11">Представление</text><text x="148" y="57" font-size="9" font-weight="600">на надбавку</text>
+    <rect x="112" y="106" width="72" height="14" rx="2" fill="#3f8f6b"/><text x="148" y="117" fill="#fff" font-size="11">1</text>
+
+    <path d="M204 76h20M217 69l7 7-7 7" stroke="#3f8f6b" stroke-width="3"/>
+
+    <rect x="228" y="26" width="104" height="100" rx="3" fill="#fff" stroke="#333" stroke-width="2"/>
+    <text x="280" y="44" font-size="11">Согласование</text><text x="280" y="57" font-size="9" font-weight="600">с руководителем</text>
+    <path d="M254 88l10 10 22-26" stroke="#3f8f6b" stroke-width="5"/>
+    <rect x="244" y="106" width="72" height="14" rx="2" fill="#3f8f6b"/><text x="280" y="117" fill="#fff" font-size="11">2</text>
+
+    <path d="M336 76h20M349 69l7 7-7 7" stroke="#3f8f6b" stroke-width="3"/>
+
+    <rect x="360" y="26" width="104" height="100" rx="3" fill="#fff" stroke="#333" stroke-width="2"/>
+    <path d="M374 70h76M374 82h76M374 94h50" stroke="#b8ad9c" stroke-width="3"/>
+    <text x="412" y="47" font-size="13">Приказ</text>
+    <circle cx="436" cy="92" r="9" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <rect x="376" y="106" width="72" height="14" rx="2" fill="#3f8f6b"/><text x="412" y="117" fill="#fff" font-size="11">3</text>
+  </g>
+
+  <!-- искры радости вместо лампочки -->
+  <g fill="#f0b429" stroke="#e09f1f" stroke-width="1.5">
+    <path d="M520 50l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+    <path d="M552 96l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+    <path d="M488 28l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+  </g>
+  <path d="M548 56c-4-8-14-2-8 6l8 8 8-8c6-8-4-14-8-6z" fill="#e85d75" stroke="none"/>
+
+  <!-- растения -->
+  <g>
+    <rect x="30" y="330" width="30" height="42" rx="4" fill="#2b2b2b"/>
+    <path d="M45 330V230" stroke="#2b7a4b" stroke-width="3"/>
+    <g fill="#3f8f6b"><ellipse cx="34" cy="305" rx="11" ry="6" transform="rotate(-30 34 305)"/><ellipse cx="56" cy="290" rx="11" ry="6" transform="rotate(30 56 290)"/><ellipse cx="34" cy="268" rx="11" ry="6" transform="rotate(-30 34 268)"/><ellipse cx="56" cy="250" rx="11" ry="6" transform="rotate(30 56 250)"/><ellipse cx="45" cy="228" rx="6" ry="11"/></g>
+    <rect x="540" y="330" width="30" height="42" rx="4" fill="#2b2b2b"/>
+    <path d="M555 330V230" stroke="#2b7a4b" stroke-width="3"/>
+    <g fill="#3f8f6b"><ellipse cx="544" cy="305" rx="11" ry="6" transform="rotate(-30 544 305)"/><ellipse cx="566" cy="290" rx="11" ry="6" transform="rotate(30 566 290)"/><ellipse cx="544" cy="268" rx="11" ry="6" transform="rotate(-30 544 268)"/><ellipse cx="566" cy="250" rx="11" ry="6" transform="rotate(30 566 250)"/><ellipse cx="555" cy="228" rx="6" ry="11"/></g>
+  </g>
+
+  <!-- кресла -->
+  <g fill="#c9ccd1" stroke="#9aa0a8" stroke-width="2">
+    <rect x="98" y="150" width="46" height="110" rx="20"/>
+    <rect x="456" y="150" width="46" height="110" rx="20"/>
+  </g>
+  <g stroke="#6b7078" stroke-width="3">
+    <path d="M150 268v50M180 268v50M100 318h110M560 0" />
+    <path d="M450 268v50M420 268v50M390 318h110"/>
+  </g>
+  <rect x="124" y="258" width="92" height="14" rx="6" fill="#b3b7be"/>
+  <rect x="384" y="258" width="92" height="14" rx="6" fill="#b3b7be"/>
+
+  <!-- стол -->
+  <rect x="190" y="228" width="230" height="10" rx="3" fill="#7a5c58"/>
+  <path d="M305 238v82M270 322h70" stroke="#5e4541" stroke-width="5"/>
+
+  <!-- ноутбук и бумаги -->
+  <path d="M238 228l14-44h70l14 44z" fill="#e7eaee" stroke="#555" stroke-width="2"/>
+  <rect x="256" y="190" width="60" height="32" rx="2" fill="#fff"/>
+  <path d="M262 198h36M262 206h44M262 214h26" stroke="#3f8f6b" stroke-width="3"/>
+  <g transform="rotate(-6 388 214)"><rect x="362" y="204" width="44" height="24" rx="2" fill="#fff" stroke="#b8ad9c" stroke-width="2"/><path d="M368 212h30M368 220h20" stroke="#b8ad9c" stroke-width="2.5"/></g>
+
+  <!-- левый человек (кадровик) -->
+  <path d="M162 218h58v14h-58z" fill="#2b2b2b"/>
+  <path d="M212 232h16v70h-16z" fill="#f2c9a5"/>
+  <path d="M206 302h30a6 6 0 0 1 0 12h-30z" fill="#a8d672" stroke="#3f8f6b" stroke-width="2"/>
+  <rect x="134" y="160" width="56" height="64" rx="16" fill="#8fc84a"/>
+  <path d="M182 176L234 198" stroke="#8fc84a" stroke-width="13"/>
+  <circle cx="238" cy="199" r="6" fill="#f2c9a5"/>
+  <circle cx="162" cy="134" r="19" fill="#f2c9a5"/>
+  <path d="M142 136c-2-20 8-30 22-30s24 10 20 30c-4-10-10-14-20-14s-18 4-22 14z" fill="#2b2b2b"/>
+  <path d="M142 136v24q-6-4-4-22z" fill="#2b2b2b"/>
+  <circle cx="166" cy="134" r="2" fill="#2b2b2b"/><circle cx="178" cy="134" r="2" fill="#2b2b2b"/><path d="M162 127l7-2M175 125l7 2" stroke="#2b2b2b" stroke-width="2"/><path d="M168 144q5 4 10 0" stroke="#2b2b2b" stroke-width="2"/>
+
+  <!-- правый человек (руководитель) -->
+  <path d="M372 230h60v12h-60z" fill="#b8a382"/>
+  <path d="M364 230h16v72h-16z" fill="#b8a382"/>
+  <path d="M358 302h34a6 6 0 0 1 0 12h-34z" fill="#2b2b2b"/>
+  <rect x="412" y="160" width="58" height="68" rx="16" fill="#1f6b52"/>
+  <path d="M418 178L394 146M464 178L488 146" stroke="#1f6b52" stroke-width="13"/>
+  <circle cx="392" cy="142" r="6" fill="#f2c9a5"/><circle cx="490" cy="142" r="6" fill="#f2c9a5"/>
+  <circle cx="440" cy="134" r="20" fill="#f2c9a5"/>
+  <path d="M420 132c0-18 9-26 21-26s22 8 20 26c-4-8-10-11-20-11s-15 3-21 11z" fill="#2b2b2b"/>
+  <path d="M424 142q2 22 16 24q14-2 16-24q-6 8-16 8t-16-8z" fill="#2b2b2b"/>
+  <path d="M426 134q5-7 10 0M442 134q5-7 10 0" stroke="#2b2b2b" stroke-width="2.5"/>
+  <circle cx="424" cy="143" r="4" fill="#f4a09a" opacity=".7"/><circle cx="456" cy="143" r="4" fill="#f4a09a" opacity=".7"/>
+  <path d="M430 150q10 13 20 0z" fill="#fff" stroke="#2b2b2b" stroke-width="2"/>
+</svg>

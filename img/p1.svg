@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- сотрудник жонглирует приказом и штатным расписанием -->
+  <rect x="74" y="84" width="52" height="56" rx="16" fill="#3f8f6b"/>
+  <path d="M80 94 L54 70 M120 94 L148 70" stroke="#f2c9a5" stroke-width="9"/>
+  <circle cx="52" cy="67" r="6" fill="#f2c9a5"/><circle cx="150" cy="67" r="6" fill="#f2c9a5"/>
+  <g transform="rotate(-18 34 30)"><rect x="8" y="6" width="52" height="42" rx="4" fill="#fff" stroke="#b8ad9c" stroke-width="2"/><text x="34" y="32" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#2b2b2b">Приказ</text></g>
+  <g transform="rotate(8 150 28)"><rect x="116" y="4" width="68" height="42" rx="4" fill="#fff" stroke="#b8ad9c" stroke-width="2"/><text x="150" y="29" text-anchor="middle" font-family="system-ui, Segoe UI, sans-serif" font-size="9" font-weight="700" fill="#2b2b2b">Представление</text></g>
+  <path d="M40 56q-4-10 0-16M150 54q4-10 0-16" stroke="#b8ad9c" stroke-width="2" stroke-dasharray="3 5"/>
+  <circle cx="100" cy="56" r="22" fill="#f2c9a5"/>
+  <path d="M78 54c0-16 10-24 22-24s22 8 22 24c-6-8-13-11-22-11s-16 3-22 11z" fill="#5a4636"/>
+  <circle cx="92" cy="56" r="5" fill="#fff" stroke="#2b2b2b" stroke-width="2"/><circle cx="108" cy="56" r="5" fill="#fff" stroke="#2b2b2b" stroke-width="2"/>
+  <circle cx="90" cy="53.5" r="1.8" fill="#2b2b2b"/><circle cx="110" cy="53.5" r="1.8" fill="#2b2b2b"/>
+  <path d="M86 47l10 2M104 49l10-2" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M91 70q4-4 9 0t9 0" stroke="#2b2b2b" stroke-width="2.5"/>
+  <path d="M124 40q4 7 0 11q-4-4 0-11z" fill="#8ec5e6"/>
+</svg>
